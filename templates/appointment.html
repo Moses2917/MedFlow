@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Appointment Scheduling</h1>
+<form method="post">
+    <div class="form-group">
+        <label for="patient_id">Patient ID</label>
+        <input type="text" class="form-control" id="patient_id" name="patient_id" required>
+    </div>
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+    <div class="form-group">
+        <label for="time">Time</label>
+        <input type="time" class="form-control" id="time" name="time" required>
+    </div>
+    <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea class="form-control" id="reason" name="reason" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+</form>
+
+<h2>Scheduled Appointments</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Doctor ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.patient_id }}</td>
+            <td>{{ appointment.doctor_id }}</td>
+            <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.reason }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
