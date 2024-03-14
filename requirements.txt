@@ -2,3 +2,4 @@ Flask
 Flask-PyMongo
 Flask-Login
 Flask-WTF
+email-validator
