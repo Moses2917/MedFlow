@@ -1,2 +1,0 @@
-SECRENT_KEY = ''
-MONGO_URI = ""

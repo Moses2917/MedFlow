@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_pymongo import PyMongo
 from flask_login import LoginManager
+import config  # Import the config module
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object(config)  # Load the configuration from the config module
 
 mongo = None
 login_manager = None
