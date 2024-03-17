@@ -1,4 +1,5 @@
 # MedFlow - Streamlining Healthcare Workflows
+![ComfyUI_temp_pujhm_00015_ (1)](https://github.com/Moses2917/MedFlow/assets/65843759/07e28167-11cc-4704-85e8-897b7da28c76)
 
 MedFlow is a powerful web application designed to revolutionize the way doctors, nurses, and physician assistants (PAs) manage their daily workflows and deliver exceptional patient care. With its intuitive interface and robust features, MedFlow empowers healthcare professionals to streamline their processes, enhance collaboration, and provide seamless patient management.
 
