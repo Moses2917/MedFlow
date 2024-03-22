@@ -3,30 +3,97 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h1 class="text-center mt-5">Welcome to MedFlow!</h1>
-                <p class="lead text-center">This is a website for streamlining medical professional workflow.</p>
-                <div class="text-center">
-                    <img src="{{ url_for('static', filename='pictures/index1.jpg') }}" alt="Heart monitor from doctor to patient" class="img-fluid mt-4" style="max-width: 500px;">
-                </div>
+            <div class="col-md-12 text-center">
+                <h1 class="mt-5">Welcome to MedFlow!</h1>
+                <p class="lead">This is a website for streamlining medical professional workflow.</p>
+                <img src="{{ url_for('static', filename='pictures/index1.jpg') }}" alt="Heart monitor from doctor to patient" class="img-fluid mt-4" style="max-width: 500px;">
                 <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index2.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
                 <h2 class="text-center mt-5">User Management</h2>
                 <p class="text-center">Secure user registration and authentication</p>
-                <div class="text-center">
-                    <img src="{{ url_for('static', filename='pictures/index2.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 500px;">
-                </div>
                 <p class="text-center">Role-based access control for doctors, nurses, and PAs</p>
                 <p class="text-center">Personalized dashboards with relevant information and tasks</p>
-                <hr>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index3.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
                 <h2 class="text-center mt-5">Patient Management</h2>
                 <p class="text-center">Search and access patient profiles</p>
-                <div class="text-center">
-                    <img src="{{ url_for('static', filename='pictures/index3.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 500px;">
-                </div>
                 <p class="text-center">View patient demographics, medical history, and family tracking</p>
                 <p class="text-center">Update and manage patient health status</p>
-                <hr>
-                <!-- More feature sections can be added similarly -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index4.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Appointment Scheduling</h2>
+                <p class="text-center">Schedule appointments for patients</p>
+                <p class="text-center">View available time slots and confirm appointments</p>
+                <p class="text-center">Receive reminders and notifications for upcoming appointments</p>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index5.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Medical Records and Prescription Tracking</h2>
+                <p class="text-center">Record medical diagnoses and order laboratory tests, X-rays, and MRIs</p>
+                <p class="text-center">Track prescription details and set medication reminders</p>
+                <p class="text-center">Access and manage electronic medical records (EMR)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index6.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Communication and Collaboration</h2>
+                <p class="text-center">Secure messaging system for communication between healthcare professionals</p>
+                <p class="text-center">Share patient information and collaborate on treatment plans</p>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index7.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Reporting and Analytics</h2>
+                <p class="text-center">Generate analytical reports on patient demographics, appointment trends, and treatment outcomes</p>
+                <p class="text-center">Gain insights into medication adherence and identify areas for improvement</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index8.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">User Settings and Preferences</h2>
+                <p class="text-center">Customize app settings and notification preferences</p>
+                <p class="text-center">Update user profiles and manage account details</p>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index9.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Intuitive User Interface</h2>
+                <p class="text-center">User-friendly interface with a clean and modern design</p>
+                <p class="text-center">Follows industry-standard usability guidelines for healthcare applications</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index10.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Security and Compliance</h2>
+                <p class="text-center">Robust security measures to protect sensitive patient data</p>
+                <p class="text-center">Compliant with healthcare regulations, including HIPAA</p>
             </div>
         </div>
     </div>
