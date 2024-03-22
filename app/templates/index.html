@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedFlow</title>
-</head>
-<div>
-    <style>
-        /* CSS code to center the header */
-        header {
-            text-align: center;
-        }
-    </style>
-<body>
-    {% block content %}
-    <h1>Welcome to MedFlow!</h1>
-    <p>This is a website for streamlining medical professional workflow.</p>
-    <img src="{{ url_for('static', filename='pictures/index1.jpg') }}" alt="heart monitor from doctor to patient" width="500">
-    {% endblock %}
-</body>
-</div>
-</html>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="text-center mt-5">Welcome to MedFlow!</h1>
+                <p class="lead text-center">This is a website for streamlining medical professional workflow.</p>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index1.jpg') }}" alt="Heart monitor from doctor to patient" class="img-fluid mt-4" style="max-width: 500px;">
+                </div>
+                <hr>
+                <h2 class="text-center mt-5">User Management</h2>
+                <p class="text-center">Secure user registration and authentication</p>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index2.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 500px;">
+                </div>
+                <p class="text-center">Role-based access control for doctors, nurses, and PAs</p>
+                <p class="text-center">Personalized dashboards with relevant information and tasks</p>
+                <hr>
+                <h2 class="text-center mt-5">Patient Management</h2>
+                <p class="text-center">Search and access patient profiles</p>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index3.png') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 500px;">
+                </div>
+                <p class="text-center">View patient demographics, medical history, and family tracking</p>
+                <p class="text-center">Update and manage patient health status</p>
+                <hr>
+                <!-- More feature sections can be added similarly -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
