@@ -12,7 +12,7 @@
     {% block content %}
     <h1>Welcome to MedFlow!</h1>
     <p>This is a website for streamlining medical professional workflow.</p>
-    <img src="pictures/index1.jpg" alt="heart monitor from doctor to patient">
+    <img src="{{ url_for('static', filename='pictures/index1.jpg') }}" alt="heart monitor from doctor to patient">
     {% endblock %}
 </body>
 </div>
