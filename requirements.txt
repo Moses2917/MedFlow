@@ -1,5 +1,5 @@
 Flask
-Flask-PyMongo
+pymongo
 Flask-Login
 Flask-WTF
 email-validator

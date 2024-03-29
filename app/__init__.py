@@ -1,20 +1,16 @@
 from flask import Flask
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from flask_login import LoginManager
-import config  # Import the config module
+import config
 
 app = Flask(__name__)
-app.config.from_object(config)  # Load the configuration from the config module
+app.config.from_object(config)
 
-mongo = None
-login_manager = None
+# Connect to MongoDB
+mongo = MongoClient(app.config['MONGO_URI'])
+db = mongo.get_database("MedicalData")#app.config['MONGO_DB_NAME'])
 
-def initialize_extensions(app):
-    global mongo, login_manager
-    mongo = PyMongo(app)
-    login_manager = LoginManager(app)
-    from app.models import load_user
-    login_manager.user_loader(load_user)
-
+login_manager = LoginManager(app)
 from app import routes, models
-initialize_extensions(app)
+from app.models import load_user
+login_manager.user_loader(load_user)

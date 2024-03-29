@@ -1,12 +1,14 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
-from app import app, mongo
+from app import app, db
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from datetime import datetime
 
+
 # User authentication routes
-# ...
+
+#db_operations = db.<COLLECTION_NAME>
 
 @app.route('/')
 def index():
@@ -18,7 +20,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data, password=form.password.data, role=form.role.data)
-        mongo.db.users.insert_one(user.to_dict())
+        db.users.insert_one(user.to_dict())
         flash('Registration successful! You can now login.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
@@ -27,7 +29,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = mongo.db.users.find_one({'email': form.email.data})
+        user = db.users.find_one({'email': form.email.data})
         if user and User(user['email'], user['password_hash'], user['role']).check_password(form.password.data):
             user_obj = User(user['email'], user['password_hash'], user['role'])
             login_user(user_obj)
@@ -55,24 +57,24 @@ def appointments():
             'time': request.form['time'],
             'reason': request.form['reason']
         }
-        mongo.db.appointments.insert_one(appointment_data)
+        db.appointments.insert_one(appointment_data)
         flash('Appointment scheduled successfully!', 'success')
-    appointments = mongo.db.appointments.find()
+    appointments = db.appointments.find()
     return render_template('appointments.html', appointments=appointments)
 
 # Patient routes
 @app.route('/patients', methods=['GET', 'POST'])
 @login_required
 def patients():
-    patients = mongo.db.patients.find()
+    patients = db.patients.find()
     return render_template('patient.html', patients=patients)
 
 @app.route('/patient/<patient_id>', methods=['GET'])
 @login_required
 def patient_details(patient_id):
-    patient = mongo.db.patients.find_one({'_id': patient_id})
-    history = mongo.db.patient_history.find({'patient_id': patient_id})
-    family = mongo.db.patient_family.find({'patient_id': patient_id})
+    patient = db.patients.find_one({'_id': patient_id})
+    history = db.patient_history.find({'patient_id': patient_id})
+    family = db.patient_family.find({'patient_id': patient_id})
     return render_template('patient_details.html', patient=patient, history=history, family=family)
 
 # Patient health history routes
@@ -87,9 +89,9 @@ def patient_history(patient_id):
             'treatment': request.form['treatment'],
             'date': datetime.strptime(request.form['date'], '%Y-%m-%d')
         }
-        mongo.db.patient_history.insert_one(history_data)
+        db.patient_history.insert_one(history_data)
         flash('Health history added successfully!', 'success')
-    history = mongo.db.patient_history.find({'patient_id': patient_id})
+    history = db.patient_history.find({'patient_id': patient_id})
     return render_template('patient_history.html', history=history, patient_id=patient_id)
 
 # Patient family tracking routes
@@ -104,9 +106,9 @@ def patient_family(patient_id):
             'age': int(request.form['age']),
             'medical_history': request.form['medical_history']
         }
-        mongo.db.patient_family.insert_one(family_data)
+        db.patient_family.insert_one(family_data)
         flash('Family member added successfully!', 'success')
-    family = mongo.db.patient_family.find({'patient_id': patient_id})
+    family = db.patient_family.find({'patient_id': patient_id})
     return render_template('patient_family.html', family=family, patient_id=patient_id)
 
 # Appointment routes
@@ -124,9 +126,9 @@ def lab_tests():
             'order_date': datetime.utcnow(),
             'results': None
         }
-        mongo.db.lab_tests.insert_one(test_data)
+        db.lab_tests.insert_one(test_data)
         flash('Laboratory test ordered successfully!', 'success')
-    tests = mongo.db.lab_tests.find()
+    tests = db.lab_tests.find()
     return render_template('lab_tests.html', tests=tests)
 
 @app.route('/lab_test/<test_id>', methods=['GET', 'POST'])
@@ -134,9 +136,9 @@ def lab_tests():
 def lab_test_details(test_id):
     if request.method == 'POST':
         test_results = request.form['results']
-        mongo.db.lab_tests.update_one({'_id': test_id}, {'$set': {'results': test_results}})
+        db.lab_tests.update_one({'_id': test_id}, {'$set': {'results': test_results}})
         flash('Test results updated successfully!', 'success')
-    test = mongo.db.lab_tests.find_one({'_id': test_id})
+    test = db.lab_tests.find_one({'_id': test_id})
     return render_template('lab_test_details.html', test=test)
 
 # Prescription routes
@@ -152,9 +154,9 @@ def prescriptions():
             'prescribed_by': current_user.id,
             'prescribed_date': datetime.utcnow()
         }
-        mongo.db.prescriptions.insert_one(prescription_data)
+        db.prescriptions.insert_one(prescription_data)
         flash('Prescription added successfully!', 'success')
-    prescriptions = mongo.db.prescriptions.find()
+    prescriptions = db.prescriptions.find()
     return render_template('prescriptions.html', prescriptions=prescriptions)
 
 # Analytical reporting routes
@@ -163,7 +165,7 @@ def prescriptions():
 def reports():
     # Implement analytical reporting logic here
     # Example: Get patient count by age group
-    patient_age_groups = mongo.db.patients.aggregate([
+    patient_age_groups = db.patients.aggregate([
         {'$bucket': {
             'groupBy': '$age',
             'boundaries': [0, 18, 30, 45, 60, 120],
@@ -187,6 +189,6 @@ def reports():
 def search():
     if request.method == 'POST':
         query = request.form['query']
-        patients = mongo.db.patients.find({'$text': {'$search': query}})
+        patients = db.patients.find({'$text': {'$search': query}})
         return render_template('search.html', patients=patients, query=query)
     return render_template('search.html')
