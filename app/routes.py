@@ -20,9 +20,12 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data, password=form.password.data, role=form.role.data)
-        db.users.insert_one(user.to_dict())
-        flash('Registration successful! You can now login.', 'success')
-        return redirect(url_for('login'))
+        if db.users.find_one({'email': form.email.data}):#checks to see if that email already exists as a registered user
+            flash('Please choose another email that one is already taken','warning')
+        else:
+            db.users.insert_one(user.to_dict())
+            flash('Registration successful! You can now login.', 'success')
+            return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -30,7 +33,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = db.users.find_one({'email': form.email.data})
-        if user and User(user['email'], user['password_hash'], user['role']).check_password(form.password.data):
+        if user and User(user['email'], user['password_hash'], user['role']).check_password(request.form.get("password")):
             user_obj = User(user['email'], user['password_hash'], user['role'])
             login_user(user_obj)
             flash('Login successful!', 'success')
