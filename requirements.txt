@@ -1,5 +1,5 @@
 Flask
-pymongo
+pymongo[srv]
 Flask-Login
 Flask-WTF
 email-validator
