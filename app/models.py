@@ -3,19 +3,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 
 class User(UserMixin):
-    def __init__(self, email, password, role, is_hashed=False):
+    def __init__(self, email, password, role):
         self.email = email
-        self.password_hash = generate_password_hash(password) if not is_hashed else password
+        self.password = password
         self.role = role
 
     def check_password(self, password):
-        result = check_password_hash(self.password_hash, password)
+        if(self.password == password):
+            result = True
+        else:
+            result = False
         return result
 
     def to_dict(self):
         return {
             'email': self.email,
-            'password_hash': self.password_hash,
+            'password_hash': self.password,
             'role': self.role
         }
 
