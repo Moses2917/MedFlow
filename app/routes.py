@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request 
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
 from app.forms import RegistrationForm, LoginForm
@@ -35,6 +35,7 @@ def login():
         user = db.users.find_one({'email': form.email.data})
         if user and User(user['email'], user['password_hash'], user['role']).check_password(request.form.get("password")):
             user_obj = User(user['email'], user['password_hash'], user['role'])
+            #session['user'] = user
             login_user(user_obj)
             flash('Login successful!', 'success')
             return redirect(url_for('index'))

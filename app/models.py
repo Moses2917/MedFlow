@@ -7,13 +7,11 @@ class User(UserMixin):
         self.email = email
         self.password = password
         self.role = role
+        self.authenticated = True
+        self.active = True
 
     def check_password(self, password):
-        if(self.password == password):
-            result = True
-        else:
-            result = False
-        return result
+        return self.password == password
 
     def to_dict(self):
         return {
@@ -21,9 +19,22 @@ class User(UserMixin):
             'password_hash': self.password,
             'role': self.role
         }
+    
+    @property 
+    def is_active(self):
+        self.acitve = True
+        return self.active
+
+    @property
+    def is_authenticated(self):
+        self.authenticated = True
+        return self.authenticated
+    
+    def get_id(self):
+        return "user"
 
 def load_user(user_id):
     user_data = db.users.find_one({'_id': user_id})
     if user_data:
-        return User(user_data['email'], user_data['password_hash'], user_data['role'], is_hashed=True)
+        return User(user_data['email'], user_data['password_hash'], user_data['role'])
     return None
