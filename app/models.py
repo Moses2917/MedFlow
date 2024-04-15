@@ -1,14 +1,12 @@
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from app import db, login_manager
 
 class User(UserMixin):
     def __init__(self, email, password, role):
         self.email = email
         self.password = password
         self.role = role
-        self.authenticated = True
-        self.active = True
 
     def check_password(self, password):
         return self.password == password
@@ -20,21 +18,21 @@ class User(UserMixin):
             'role': self.role
         }
     
-    @property 
-    def is_active(self):
-        self.acitve = True
-        return self.active
-
-    @property
-    def is_authenticated(self):
-        self.authenticated = True
-        return self.authenticated
     
     def get_id(self):
-        return "user"
+        user_id = db.users.find_one({'email': self.email})
+        if user_id:
+            return str(user_id['_id'])
+        return None
 
+    @staticmethod
+    def get_by_email(email):
+        user_data = db.users.find_one({'email': email})
+        if user_data:
+            return User(user_data['email'], user_data['password'], user_data['role'])
+        return None
+
+# Load user callback
+@login_manager.user_loader
 def load_user(user_id):
-    user_data = db.users.find_one({'_id': user_id})
-    if user_data:
-        return User(user_data['email'], user_data['password_hash'], user_data['role'])
-    return None
+    return User.get_by_email(user_id)

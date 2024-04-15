@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+{% if session['user'] %}
 <h1>Appointment Scheduling</h1>
 <form method="post">
     <div class="form-group">
@@ -45,4 +45,7 @@
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
 {% endblock %}

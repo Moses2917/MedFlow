@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if session['user'] %}
 <h1>Patient Information</h1>
+<a href="{{url_for('add_patient')}}" class="btn btn-primary" role="button">Add a Patient</a>
 <table class="table">
     <thead>
         <tr>
@@ -12,6 +14,7 @@
             <th>Actions</th>
         </tr>
     </thead>
+    {% if patients %}
     <tbody>
         {% for patient in patients %}
         <tr>
@@ -21,9 +24,16 @@
             <td>{{ patient.contact }}</td>
             <td>
                 <a href="{{ url_for('patient_details', patient_id=patient._id) }}" class="btn btn-primary btn-sm">View Details</a>
-            </td>
+            </td> 
+            <!-- TODO: Add a edit button -->
         </tr>
         {% endfor %}
     </tbody>
+    {%else%}
+    <h2>You currently have no active patients please add some</h2>
+    {%endif%}
 </table>
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
 {% endblock %}

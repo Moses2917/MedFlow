@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request 
+from flask import render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
 from app.forms import RegistrationForm, LoginForm
@@ -35,8 +35,10 @@ def login():
         user = db.users.find_one({'email': form.email.data})
         if user and User(user['email'], user['password_hash'], user['role']).check_password(request.form.get("password")):
             user_obj = User(user['email'], user['password_hash'], user['role'])
-            #session['user'] = user
-            login_user(user_obj)
+            session['_user_id'] = str(user["_id"])
+            session["user"] = user_obj.to_dict()
+            # login_user(user_obj,remember=True)
+            # user_obj.
             flash('Login successful!', 'success')
             return redirect(url_for('index'))
         else:
@@ -44,14 +46,15 @@ def login():
     return render_template('login.html', form=form)
 
 @app.route('/logout')
-@login_required
+# @login_required
 def logout():
     logout_user()
+    session["user"] = None
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
 @app.route('/appointments', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def appointments():
     if request.method == 'POST':
         appointment_data = {
@@ -68,13 +71,32 @@ def appointments():
 
 # Patient routes
 @app.route('/patients', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def patients():
-    patients = db.patients.find()
-    return render_template('patient.html', patients=patients)
+    patient_list = None
+    if session.get('user', None):
+        email = session['user'].get('email')  
+        if email:
+            cursor = db.patients.find({"doctor": email})
+            patient_list = [doc for doc in cursor]
+    return render_template('patient.html', patients=patient_list)
+
+@app.route('/NewPatient', methods=['GET','POST']) #could possibly be used as a add/edit
+def add_patient():
+    if request.method == 'POST':
+        patient = {
+            'name': request.form.get('name'),
+            'age': request.form.get('age'),
+            'gender': request.form.get('gender'),
+            'contact': request.form.get('contact'),
+            'doctor': session['user']['email']
+        }
+        db.patients.insert_one(patient)
+        return redirect(url_for('patients'))
+    return render_template('add_patient.html')
 
 @app.route('/patient/<patient_id>', methods=['GET'])
-@login_required
+# @login_required
 def patient_details(patient_id):
     patient = db.patients.find_one({'_id': patient_id})
     history = db.patient_history.find({'patient_id': patient_id})
@@ -83,7 +105,7 @@ def patient_details(patient_id):
 
 # Patient health history routes
 @app.route('/patient/<patient_id>/history', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def patient_history(patient_id):
     if request.method == 'POST':
         history_data = {
@@ -100,7 +122,7 @@ def patient_history(patient_id):
 
 # Patient family tracking routes
 @app.route('/patient/<patient_id>/family', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def patient_family(patient_id):
     if request.method == 'POST':
         family_data = {
@@ -120,7 +142,7 @@ def patient_family(patient_id):
 
 # Laboratory tests routes
 @app.route('/lab_tests', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def lab_tests():
     if request.method == 'POST':
         test_data = {
@@ -136,7 +158,7 @@ def lab_tests():
     return render_template('lab_tests.html', tests=tests)
 
 @app.route('/lab_test/<test_id>', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def lab_test_details(test_id):
     if request.method == 'POST':
         test_results = request.form['results']
@@ -147,7 +169,7 @@ def lab_test_details(test_id):
 
 # Prescription routes
 @app.route('/prescriptions', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def prescriptions():
     if request.method == 'POST':
         prescription_data = {
@@ -165,7 +187,7 @@ def prescriptions():
 
 # Analytical reporting routes
 @app.route('/reports', methods=['GET'])
-@login_required
+# @login_required
 def reports():
     # Implement analytical reporting logic here
     # Example: Get patient count by age group
@@ -189,7 +211,7 @@ def reports():
 
 # Search functionality
 @app.route('/search', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def search():
     if request.method == 'POST':
         query = request.form['query']
