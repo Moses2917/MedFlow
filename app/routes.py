@@ -56,17 +56,25 @@ def logout():
 @app.route('/appointments', methods=['GET', 'POST'])
 # @login_required
 def appointments():
+    appointments = ""
     if request.method == 'POST':
-        appointment_data = {
-            'patient_id': request.form['patient_id'],
-            'doctor_id': current_user.id,
-            'date': datetime.strptime(request.form['date'], '%Y-%m-%d'),
-            'time': request.form['time'],
-            'reason': request.form['reason']
-        }
-        db.appointments.insert_one(appointment_data)
-        flash('Appointment scheduled successfully!', 'success')
-    appointments = db.appointments.find()
+        if session.get('user', None):
+            email = session['user'].get('email')
+            if email:
+                appointment_data = {
+                    'patient_id': request.form['patient_id'],
+                    'doctor': session["user"]["email"],
+                    'date': datetime.strptime(request.form['date'], '%Y-%m-%d'),
+                    'time': request.form['time'],
+                    'reason': request.form['reason']
+                }
+                db.appointments.insert_one(appointment_data)
+                flash('Appointment scheduled successfully!', 'success')
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            cursor = db.appointments.find({'doctor': email})
+            appointments = [doc for doc in cursor]
     return render_template('appointments.html', appointments=appointments)
 
 # Patient routes

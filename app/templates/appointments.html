@@ -37,7 +37,7 @@
         {% for appointment in appointments %}
         <tr>
             <td>{{ appointment.patient_id }}</td>
-            <td>{{ appointment.doctor_id }}</td>
+            <td>{{ appointment.doctor }}</td>
             <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
             <td>{{ appointment.time }}</td>
             <td>{{ appointment.reason }}</td>
