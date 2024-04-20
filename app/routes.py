@@ -57,6 +57,13 @@ def logout():
 # @login_required
 def appointments():
     appointments = ""
+    patient_list = None
+    if session.get('user', None):
+        email = session['user'].get('email')  
+        if email:
+            #This is to get the patients
+            cursor = db.patients.find({"doctor": email})
+            patient_list = [doc for doc in cursor]
     if request.method == 'POST':
         if session.get('user', None):
             email = session['user'].get('email')
@@ -75,7 +82,7 @@ def appointments():
         if email:
             cursor = db.appointments.find({'doctor': email})
             appointments = [doc for doc in cursor]
-    return render_template('appointments.html', appointments=appointments)
+    return render_template('appointments.html', appointments=appointments, patients=patient_list)
 
 # Patient routes
 @app.route('/patients', methods=['GET', 'POST'])

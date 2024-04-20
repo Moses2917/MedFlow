@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if session['user'] %}
+<h1>Patient Details<h1>
+    
+
+</table>
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
+{% endblock %}
