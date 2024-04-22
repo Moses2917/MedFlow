@@ -3,7 +3,30 @@
 {% block content %}
 {% if session['user'] %}
 <h1>Patient Details<h1>
-    
+<h2>For: {{ patient }}</h2>
+<td>Scheduled Appointments</td>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+</table>
+
+
+<td>Prescriptions</td>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Dosage</th>
+            <th>Reason</th>
+            <th>Refill Status</th>
+        </tr>
+    </thead>
 
 </table>
 {% else %}
