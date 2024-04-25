@@ -26,9 +26,6 @@
         {% endfor %}
     </tbody>
 </table>
-<form action="{{ url_for('delete_patient', patient_id=patient_id) }}" method="post">
-    <button type="submit" class="btn btn-danger">Delete</button>
-</form>
 
 <td>Prescriptions</td>
 <table class="table">
