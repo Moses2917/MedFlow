@@ -25,8 +25,8 @@
             <td>{{ patient.contact }}</td>
             <td>
                 <a href="{{ url_for('patient_details', patient_id=patient.name) }}" class="btn btn-primary btn-sm">View Details</a>
+                <a href="{{ url_for('delete_patient', patient_id=patient.name) }}" class="btn btn-danger btn-sm">Delete Patient</a>
             </td> 
-            <!-- TODO: Add a edit button -->
         </tr>
         {% endfor %}
     </tbody>
