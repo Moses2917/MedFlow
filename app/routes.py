@@ -247,4 +247,19 @@ def delete_patient(patient_id):
     # Example:
     # db.patients.delete_one({'_id': ObjectId(patient_id)})
     flash('Patient deleted successfully!', 'success')
-    return redirect(url_for('patients'))  # Redirect to the patients page after deletion
+    return redirect(url_for('patient'))  # Redirect to the patients page after deletion
+
+
+@app.route('/edit_details', methods=['GET','POST']) #could possibly be used as a add/edit
+def edit_details():
+    if request.method == 'POST':
+        patient = {
+            'name': request.form.get('name'),
+            'age': request.form.get('age'),
+            'gender': request.form.get('gender'),
+            'contact': request.form.get('contact'),
+            'doctor': session['user']['email']
+        }
+        db.patients.insert_one(patient)
+        return redirect(url_for('patients'))
+    return render_template('edit_details.html')
