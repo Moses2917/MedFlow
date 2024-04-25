@@ -239,3 +239,12 @@ def search():
         patients = db.patients.find({'$text': {'$search': query}})
         return render_template('search.html', patients=patients, query=query)
     return render_template('search.html')
+
+#delete patient
+@app.route('/delete_patient/<patient_id>', methods=['POST'])
+def delete_patient(patient_id):
+    # Logic to delete the patient with the given patient_id
+    # Example:
+    # db.patients.delete_one({'_id': ObjectId(patient_id)})
+    flash('Patient deleted successfully!', 'success')
+    return redirect(url_for('patients'))  # Redirect to the patients page after deletion
