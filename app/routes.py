@@ -243,8 +243,16 @@ def search():
 #delete patient
 @app.route('/delete_patient/<patient_id>', methods=['POST'])
 def delete_patient(patient_id):
-    # Logic to delete the patient with the given patient_id
-    # Example:
-    # db.patients.delete_one({'_id': ObjectId(patient_id)})
+    
     flash('Patient deleted successfully!', 'success')
-    return redirect(url_for('patients'))  # Redirect to the patients page after deletion
+    return redirect(url_for('patients.html'))  # Redirect to the patients page after deletion
+
+#Delete Appointment
+@app.route('/delete_appointment/<appointment>', methods=['GET','POST'])
+def delete_appointment(appointment):
+    item_to_delete = appointment
+    if item_to_delete:
+        db.appoitments.delete_one({'_id':item_to_delete})
+        return redirect(url_for('appointments'))
+    else:
+        return "Not Found", 404
