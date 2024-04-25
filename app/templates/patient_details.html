@@ -4,6 +4,11 @@
 {% if session['user'] %}
 <h1>Patient Details: {{ patient }}<h1>
 <h2>Scheduled Appointments</h2>
+<form method="post">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" type="submit" class="btn btn-outline-info">Edit</button>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
