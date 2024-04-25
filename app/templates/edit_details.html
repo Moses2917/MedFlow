@@ -2,43 +2,35 @@
 
 {% block content %}
 {% if session['user'] %}
-
-<div class="input-group mb-3">
-    <span class="input-group-text" id="basic-addon1">@</span>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <span class="input-group-text" id="basic-addon2">@example.com</span>
-  </div>
-  
-  <div class="mb-3">
-    <label for="basic-url" class="form-label">Your vanity URL</label>
-    <div class="input-group">
-      <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+<h1>Edit Patient Information</h1>
+<form method="post">
+    <div class="form-floating mb-3">
+        <input type="text" name="name" placeholder="Name" class="form-control" id="name">
+        <label for="name" class="form-label">Please enter your patient's name</label>
     </div>
-    <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
-  </div>
-  
-  <div class="input-group mb-3">
-    <span class="input-group-text">$</span>
-    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-    <span class="input-group-text">.00</span>
-  </div>
-  
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-    <span class="input-group-text">@</span>
-    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-  </div>
-  
+    <div class="form-floating mb-3">
+        <input type="number" name="age" id="age" class="form-control" placeholder="Age" min="0" max="100">
+        <label for="age" class="form-label">Please enter their age (0-100)</label>
+    </div>
+    <div class="form-floating mb-3">
+        <select name="gender" id="gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <label for="gender" class="form-label">Please select their gender</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" name="contact" id="contact" class="form-control" placeholder="Email">
+        <label for="contact" class="form-label">Please enter their email</label>
+    </div>
   <div class="input-group">
     <span class="input-group-text">With textarea</span>
     <textarea class="form-control" aria-label="With textarea"></textarea>
   </div>
-
+  <form method="post">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{url_for('edit_details')}}" class="btn btn-success" role="button">Submit</a>
+    </div>
 {% else %}
 {% include 'guest.html' %}
 {% endif %}
