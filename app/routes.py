@@ -110,13 +110,19 @@ def add_patient():
         return redirect(url_for('patients'))
     return render_template('add_patient.html')
 
-@app.route('/patient/<patient_id>', methods=['GET'])
+@app.route('/patient_details/<patient_id>', methods=['GET'])
 # @login_required
 def patient_details(patient_id):
-    patient = db.patients.find_one({'_id': patient_id})
+    patient = patient_id
     history = db.patient_history.find({'patient_id': patient_id})
     family = db.patient_family.find({'patient_id': patient_id})
-    return render_template('patient_details.html', patient=patient, history=history, family=family)
+    appointments = ""
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            cursor = db.appointments.find({'doctor': email})
+            appointments = [doc for doc in cursor]
+    return render_template('patient_details.html', patient=patient, history=history, family=family, appointments=appointments)
 
 # Patient health history routes
 @app.route('/patient/<patient_id>/history', methods=['GET', 'POST'])
