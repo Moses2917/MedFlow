@@ -13,7 +13,12 @@
   height: 100%; /* Ensure the calendar fills the height of its container */
 }
 
+.table-container {
+  width: 100%; /* Make the container fill the width of the screen */
+}
+
 .table {
-  max-width: 800px; /* Adjust the maximum width as needed */
-  margin: 0 auto; /* Center the table horizontally */
+  width: 100%; /* Double the width of the table */
+  transform: scale(.75); /* Scale the table down to 50% of its original size */
+  transform-origin: left top; /* Set the origin of the transformation to the top-left corner */
 }

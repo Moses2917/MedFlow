@@ -4,6 +4,7 @@
 {% if session['user'] %}
 <h1>Patient Information</h1>
 <a href="{{url_for('add_patient')}}" class="btn btn-primary" role="button">Add a Patient</a>
+<div class="table-container">
 <table class="table">
     <thead>
         <tr>
@@ -33,6 +34,7 @@
     <h2>You currently have no active patients please add some</h2>
     {%endif%}
 </table>
+</div>
 {% else %}
 {% include 'guest.html' %}
 {% endif %}
