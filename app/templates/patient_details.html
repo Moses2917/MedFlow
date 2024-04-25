@@ -26,7 +26,7 @@
                 <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
                 <td>{{ appointment.time }}</td>
                 <td>{{ appointment.reason }}</td>
-                <textarea id="notes" name="notes" rows="1" cols="20"></textarea> 
+                <td><textarea id="notes" name="notes" rows="1" cols="20"></textarea> </td>
                 {% endif %}
             </tr>
         {% endfor %}
