@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if session['user'] %}
+<h1>Edit Patient Information</h1>
+<form method="post">
+    <div class="form-floating mb-3">
+        <input type="text" name="name" placeholder="Name" class="form-control" id="name">
+        <label for="name" class="form-label">Please update your patient's name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" name="age" id="age" class="form-control" placeholder="Age" min="0" max="100">
+        <label for="age" class="form-label">Please update their age (0-100)</label>
+    </div>
+    <div class="form-floating mb-3">
+        <select name="gender" id="gender" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <label for="gender" class="form-label">Please update their gender</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" name="contact" id="contact" class="form-control" placeholder="Email">
+        <label for="contact" class="form-label">Please update their email</label>
+    </div>
+  <div class="input-group">
+    <span class="input-group-text">Notes</span>
+    <textarea class="form-control" aria-label="With textarea"></textarea>
+  </div>
+  <form method="post">
+    <div class="vstack gap-2 col-md-5 mx-auto"style="padding-top: 20px;">
+        <button type="button" class="btn btn-success">Save changes</button>
+        <button type="button" class="btn btn-outline-secondary">Cancel</button>
+      </div>
+    
+    </form>
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
+{% endblock %}

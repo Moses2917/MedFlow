@@ -256,3 +256,17 @@ def delete_appointment(appointment):
         return redirect(url_for('appointments'))
     else:
         return "Not Found", 404
+
+@app.route('/edit_details', methods=['GET','POST']) #could possibly be used as a add/edit
+def edit_details():
+    if request.method == 'POST':
+        patient = {
+            'name': request.form.get('name'),
+            'age': request.form.get('age'),
+            'gender': request.form.get('gender'),
+            'contact': request.form.get('contact'),
+            'doctor': session['user']['email']
+        }
+        db.patients.insert_one(patient)
+        return redirect(url_for('patients'))
+    return render_template('edit_details.html')
