@@ -28,9 +28,10 @@
     <textarea class="form-control" aria-label="With textarea"></textarea>
   </div>
   <form method="post">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="{{url_for('patients')}}" button type="submit" class="btn btn-success" role="button">Submit</a>
-    </div>
+    <div class="vstack gap-2 col-md-5 mx-auto"style="padding-top: 20px;">
+        <button type="button" class="btn btn-success">Save changes</button>
+        <button type="button" class="btn btn-outline-secondary">Cancel</button>
+      </div>
     
     </form>
 {% else %}
