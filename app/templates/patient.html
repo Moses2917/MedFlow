@@ -2,9 +2,22 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>Patient Information</h1>
+<h1>Patient Management</h1> 
+<div class="header-content">
+    <div class="col-md-6">
+      <div class="text-center">
+        <img src="{{ url_for('static', filename='pictures/index3.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+      </div>
+      <p class="text-right">Search and access patient profiles</p>
+      <p class="text-right">View patient medical history, and family tracking</p>
+      <p class="text-right">Easily update and manage patient health status</p>
+    </div>
+  </div>
+  
 <a href="{{url_for('add_patient')}}" class="btn btn-primary" role="button">Add a Patient</a>
+
 <div class="table-container">
+    
 <table class="table table-striped">
     <thead>
         <tr>
