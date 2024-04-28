@@ -6,7 +6,9 @@
 <h2>Scheduled Appointments</h2>
 <form method="post">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="{{url_for('edit_details')}}" class="btn btn-primary" role="button">Edit Patient</a>
+        <a href="{{url_for('prescriptions')}}" class="btn btn-primary" role="button">View/Add New Perscription(s)</a>
+        <a href="{{url_for('lab_tests')}}" class="btn btn-primary" role="button">View Lab Test(s)</a>
+        <a href="{{url_for('edit_details')}}" class="btn btn-primary" role="button">Edit Patient's Info</a>
     </div>
     
 </form>
@@ -22,12 +24,12 @@
     <tbody>
         {% for appointment in appointments %}
             <tr>
-                {% if appointment.patient_id == patient %}
+                
                 <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
                 <td>{{ appointment.time }}</td>
                 <td>{{ appointment.reason }}</td>
                 <td><textarea id="notes" name="notes" rows="1" cols="20"></textarea> </td>
-                {% endif %}
+                
             </tr>
         {% endfor %}
     </tbody>

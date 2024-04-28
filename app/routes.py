@@ -104,7 +104,8 @@ def add_patient():
             'age': request.form.get('age'),
             'gender': request.form.get('gender'),
             'contact': request.form.get('contact'),
-            'doctor': session['user']['email']
+            'doctor': session['user']['email'],
+            'comments': request.form.get('comments')
         }
         db.patients.insert_one(patient)
         return redirect(url_for('patients'))
@@ -120,6 +121,11 @@ def patient_details(patient_id):
     if session.get('user', None):
         email = session['user'].get('email')
         if email:
+            session['patient'] = db.patients.find_one({
+                "doctor": email,
+                "name": patient_id
+                })
+            session['patient']['_id'] = 0
             cursor = db.appointments.find({'doctor': email})
             appointments = [doc for doc in cursor]
     return render_template('patient_details.html', patient=patient, history=history, family=family, appointments=appointments)
@@ -158,8 +164,21 @@ def patient_family(patient_id):
     family = db.patient_family.find({'patient_id': patient_id})
     return render_template('patient_family.html', family=family, patient_id=patient_id)
 
-# Appointment routes
-# ...
+@app.route('/edit_details', methods=['GET','POST']) #could possibly be used as a add/edit
+def edit_details():
+    if request.method == 'POST':
+        patient = {
+            'name': request.form.get('name', session['patient']['name']),
+            'age': request.form.get('age', session['patient']['age']),
+            'gender': request.form.get('gender', session['patient']['gender']),
+            'contact': request.form.get('contact', session['patient']['contact']),
+            'comments': request.form.get('comments', session['patient']['contact']),
+            'doctor': session['user']['email']
+        }
+        db.patients.insert_one(patient)
+        return redirect(url_for('patients'))
+    return render_template('edit_details.html')
+
 
 # Laboratory tests routes
 @app.route('/lab_tests', methods=['GET', 'POST'])
@@ -170,7 +189,7 @@ def lab_tests():
             'patient_id': request.form['patient_id'],
             'test_type': request.form['test_type'],
             'ordered_by': current_user.id,
-            'order_date': datetime.utcnow(),
+            'order_date': datetime.now(),#datetime.strptime(datetime.now(), '%Y-%m-%d'),
             'results': None
         }
         db.lab_tests.insert_one(test_data)
@@ -194,12 +213,12 @@ def lab_test_details(test_id):
 def prescriptions():
     if request.method == 'POST':
         prescription_data = {
-            'patient_id': request.form['patient_id'],
+            # 'patient_id': request.form['patient_id'],
             'medication': request.form['medication'],
             'dosage': request.form['dosage'],
             'instructions': request.form['instructions'],
-            'prescribed_by': current_user.id,
-            'prescribed_date': datetime.utcnow()
+            'prescribed_by': session['user']['email'],
+            'prescribed_date': datetime.now()
         }
         db.prescriptions.insert_one(prescription_data)
         flash('Prescription added successfully!', 'success')
@@ -257,16 +276,3 @@ def delete_appointment(appointment):
     else:
         return "Not Found", 404
 
-@app.route('/edit_details', methods=['GET','POST']) #could possibly be used as a add/edit
-def edit_details():
-    if request.method == 'POST':
-        patient = {
-            'name': request.form.get('name'),
-            'age': request.form.get('age'),
-            'gender': request.form.get('gender'),
-            'contact': request.form.get('contact'),
-            'doctor': session['user']['email']
-        }
-        db.patients.insert_one(patient)
-        return redirect(url_for('patients'))
-    return render_template('edit_details.html')
