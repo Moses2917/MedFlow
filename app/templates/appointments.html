@@ -30,6 +30,7 @@
 </form>
 
 <h2>Scheduled Appointments</h2>
+<div class="table-container">
 <table class="table">
     <thead>
         <tr>
@@ -52,6 +53,7 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% else %}
 {% include 'guest.html' %}
 {% endif %}
