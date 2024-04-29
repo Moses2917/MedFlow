@@ -14,11 +14,15 @@
 <form method="post">
     <div class="form-group">
       <strong>  <label for="patient_id">Patient ID</label> </strong>
-        <input type="search" list="patientNames" class="form-control" id="patient_id" name="patient_id" required>
+      <div class="form-floating">
+          <input type="search" list="patientNames" class="form-control" id="patient_id" name="patient_id" required>
+          <label for="patient_id">First, Last</label>
+          <!-- TODO: add a check to make sure the input is a valid patient -->
+      </div>
         <datalist id="patientNames">
             {% if patients %}
                 {% for patient in patients %}
-                    <option value = {{patient["name"]|safe}}></option>
+                    <option value = '{{patient["name"]|safe}}'></option>
                 {% endfor %}
             {% endif %}
         </datalist>

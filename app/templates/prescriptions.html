@@ -18,6 +18,10 @@
         <textarea class="form-control" name="instructions" placeholder="Leave instructions here" id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Instructions</label>
     </div>
+        <div class="form-floating mb-3">
+        <textarea class="form-control" name="reason" placeholder="reason" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Reason</label>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
@@ -29,6 +33,7 @@
                 <td>Medication</td>
                 <td>Dosage (mg)</td>
                 <td>Instructions</td>
+                <td>Reason</td>
                 <td>Prescribed by</td>
                 <td>Date prescribed</td>
             </tr>
@@ -38,6 +43,7 @@
                 <td>{{ prescription.medication }}</td>
                 <td>{{prescription.dosage}}</td>
                 <td>{{prescription.instructions}}</td>
+                <td>{{prescription.reason}}</td>
                 <td>{{prescription.prescribed_by}}</td>
                 <td>{{prescription.prescribed_date}}</td>
             </tr>
