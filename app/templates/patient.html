@@ -2,10 +2,23 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>Patient Information</h1>
+<h1>Patient Management</h1> 
+<div class="header-content">
+    <div class="col-md-6">
+      <div class="text-left">
+        <img src="{{ url_for('static', filename='pictures/index3.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+      </div>
+      <p class="text-right">Search and access patient profiles</p>
+      <p class="text-right">View patient medical history and family tracking</p>
+      <p class="text-right">Ease of access to manage patients status</p>
+    </div>
+  </div>
+  
 <a href="{{url_for('add_patient')}}" class="btn btn-primary" role="button">Add a Patient</a>
+
 <div class="table-container">
-<table class="table">
+    
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
@@ -25,8 +38,9 @@
             <td>{{ patient.contact }}</td>
             <td>
                 <a href="{{ url_for('patient_details', patient_id=patient.name) }}" class="btn btn-primary btn-sm">View Details</a>
+                <a href="{{ url_for('delete_patient', patient_id=patient.name) }}" class="btn btn-danger btn-sm">Delete Patient</a>
+                
             </td> 
-            <!-- TODO: Add a edit button -->
         </tr>
         {% endfor %}
     </tbody>

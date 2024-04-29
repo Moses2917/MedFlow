@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if session['user'] %}
+<h1>View or Edit patient prescriptions</h1>
+<a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
+<br>
+<form method="post">
+    <div class="form-floating mb-3">
+        <input type="text" name="medication" placeholder="Medication" class="form-control" id="medication">
+        <label for="medication" class="form-label">Please enter your prescribed medication's name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" name="dosage" id="dosage" class="form-control" placeholder="dosage">
+        <label for="dosage" class="form-label">Dosage (mg)</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea class="form-control" name="instructions" placeholder="Leave instructions here" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Instructions</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if prescriptions %}
+<div class="table-responsive fs-3">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Medication</td>
+                <td>Dosage (mg)</td>
+                <td>Instructions</td>
+                <td>Prescribed by</td>
+                <td>Date prescribed</td>
+            </tr>
+        
+            {% for prescription in prescriptions %}
+            <tr>
+                <td>{{ prescription.medication }}</td>
+                <td>{{prescription.dosage}}</td>
+                <td>{{prescription.instructions}}</td>
+                <td>{{prescription.prescribed_by}}</td>
+                <td>{{prescription.prescribed_date}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%endif%}
+
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
+{% endblock %}
