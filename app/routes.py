@@ -121,12 +121,17 @@ def patient_details(patient_id):
     if session.get('user', None):
         email = session['user'].get('email')
         if email:
+            #Sets the currently active patient
             session['patient'] = db.patients.find_one({
                 "doctor": email,
                 "name": patient_id
                 })
             session['patient']['_id'] = 0
-            cursor = db.appointments.find({'doctor': email})
+            
+            cursor = db.appointments.find({
+                "doctor": email,
+                "patient_id": patient_id
+                })
             appointments = [doc for doc in cursor]
     return render_template('patient_details.html', patient=patient, history=history, family=family, appointments=appointments)
 
@@ -179,7 +184,6 @@ def edit_details():
         return redirect(url_for('patients'))
     return render_template('edit_details.html')
 
-
 # Laboratory tests routes
 @app.route('/lab_tests', methods=['GET', 'POST'])
 # @login_required
@@ -211,18 +215,29 @@ def lab_test_details(test_id):
 @app.route('/prescriptions', methods=['GET', 'POST'])
 # @login_required
 def prescriptions():
+    prescriptions = ""
     if request.method == 'POST':
         prescription_data = {
-            # 'patient_id': request.form['patient_id'],
+            'patient_id': session['patient']['name'],
             'medication': request.form['medication'],
             'dosage': request.form['dosage'],
             'instructions': request.form['instructions'],
+            'reason': request.form['reason'],
             'prescribed_by': session['user']['email'],
             'prescribed_date': datetime.now()
         }
         db.prescriptions.insert_one(prescription_data)
         flash('Prescription added successfully!', 'success')
-    prescriptions = db.prescriptions.find()
+        
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            cursor = db.prescriptions.find({
+                "prescribed_by": email,
+                "patient_id": session['patient']['name']
+                })
+            prescriptions = [doc for doc in cursor]
+    # prescriptions = db.prescriptions.find()
     return render_template('prescriptions.html', prescriptions=prescriptions)
 
 # Analytical reporting routes
