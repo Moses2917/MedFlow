@@ -3,6 +3,14 @@
 {% block content %}
 {% if session['user'] %}
 <h1>View patient lab results</h1>
+<div class="col-md-6">
+    <div class="text-left">
+        <img src="{{ url_for('static', filename='pictures/index5.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+    </div>
+    <p class="text-left">Record medical diagnoses and order laboratory tests, X-rays, and MRIs</p>
+    <p class="text-left">Track prescribed tests types and dosages</p>
+    <p class="text-left">Access and manage electronic medical records (EMR)</p>
+</div>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
     role="button">Back</a>
 <form method="post">

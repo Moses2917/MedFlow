@@ -3,6 +3,13 @@
 {% block content %}
 {% if session['user'] %}
 <h1>View or Edit patient prescriptions</h1>
+<div class="col-md-6">
+    <div class="text-left">
+        <img src="{{ url_for('static', filename='pictures/index9.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+    </div>
+    <p class="text-left">User-friendly interface with clean and modern design</p>
+    <p class="text-left">Follows industry-standard usability guidelines for healthcare applications</p>
+</div>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
 <br>
 <form method="post">
