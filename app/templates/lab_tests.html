@@ -16,16 +16,16 @@
 <form method="post">
     <div class="form-floating mb-3">
         <input type="text" name="test_type" placeholder="Test Type" class="form-control" id="test_type">
-        <label for="test_type" class="form-label">Please enter your prescribed test type</label>
+        <label for="test_type" class="form-label">Please enter desired test</label>
     </div>
     <div class="form-floating mb-3">
         <input type="number" name="dosage" id="dosage" class="form-control" placeholder="dosage">
-        <label for="dosage" class="form-label">Dosage (mg)</label>
+        <label for="dosage" class="form-label">Reason for the desired test</label>
     </div>
     <div class="form-floating mb-3">
         <textarea class="form-control" name="instructions" placeholder="Leave instructions here"
             id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Instructions</label>
+        <label for="floatingTextarea">Time and date of the test</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -35,11 +35,11 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <td>Medication</td>
-                <td>Dosage (mg)</td>
-                <td>Instructions</td>
-                <td>Prescribed by</td>
-                <td>Date prescribed</td>
+                <td>Test</td>
+                <td>Reason</td>
+                <td>Time/Date</td>
+                <td>Requested by</td>
+                <td>Date requested</td>
             </tr>
 
             {% for prescription in prescriptions %}
