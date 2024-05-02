@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>View patient lab results</h1>
+<h1>Access Lab Results</h1>
 <div class="col-md-6">
     <div class="text-left">
         <img src="{{ url_for('static', filename='pictures/index5.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
@@ -27,11 +27,14 @@
             id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Instructions</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="vstack gap-2 col-md-5 mx-auto"style="padding-bottom: 20px;">
+        <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        </div> 
 </form>
 
 {% if tests %}
-<div class="table-responsive fs-3">
+<div class="table-responsive fs-2">
     <table class="table table-striped">
         <tbody>
             <tr>
