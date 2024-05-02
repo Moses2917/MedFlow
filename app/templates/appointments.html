@@ -58,6 +58,9 @@
             <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
             <td>{{ appointment.time }}</td>
             <td>{{ appointment.reason }}</td>
+            <td>
+                <a href="{{url_for('delete_appointment', appointment=appointment._id)}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
