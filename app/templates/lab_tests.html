@@ -15,17 +15,22 @@
     role="button">Back</a>
 <form method="post">
     <div class="form-floating mb-3">
+        <strong> <label for="time">Test</label> </strong>
         <input type="text" name="test_type" placeholder="Test Type" class="form-control" id="test_type">
         <label for="test_type" class="form-label">Please enter desired test</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" name="dosage" id="dosage" class="form-control" placeholder="dosage">
+        <strong> <label for="time">Reason</label> </strong>
+        <input type="text" name="dosage" id="dosage" class="form-control" placeholder="dosage">
         <label for="dosage" class="form-label">Reason for the desired test</label>
     </div>
     <div class="form-floating mb-3">
-        <textarea class="form-control" name="instructions" placeholder="Leave instructions here"
-            id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Time and date of the test</label>
+        <strong> <label for="date">Date</label> </strong>
+        <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+    <div class="form-group">
+        <strong> <label for="time">Time</label> </strong>
+         <input type="time" class="form-control" id="time" name="time" required>
     </div>
     <div class="vstack gap-2 col-md-5 mx-auto"style="padding-bottom: 20px;">
         <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
