@@ -26,21 +26,22 @@
 </form>
 
 {% if prescriptions %}
-<div class="table-responsive fs-3">
-    <table class="table table-striped">
-        <tbody>
+<div class="table-responsive-sm fs-4 mt-5">
+    <table class="table table-bordered table-responsive">
+        <thead class="table-body table-group-divider">
             <tr>
-                <td>Medication</td>
-                <td>Dosage (mg)</td>
-                <td>Instructions</td>
-                <td>Reason</td>
-                <td>Prescribed by</td>
-                <td>Date prescribed</td>
+                <th class="col-md-3">Medication</th>
+                <th class="col-md-2">Dosage (mg)</th>
+                <th class="col-md-3">Instructions</th>
+                <th class="col-md-2">Reason</th>
+                <th class="col-md-1">Prescribed by</th>
+                <th class="col-md-1">Date prescribed</th>
             </tr>
-        
+        </thead>
+        <tbody>
             {% for prescription in prescriptions %}
             <tr>
-                <td>{{ prescription.medication }}</td>
+                <td>{{prescription.medication }}</td>
                 <td>{{prescription.dosage}}</td>
                 <td>{{prescription.instructions}}</td>
                 <td>{{prescription.reason}}</td>
