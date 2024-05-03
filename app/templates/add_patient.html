@@ -29,7 +29,9 @@
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="comments"></textarea>
         <label for="floatingTextarea">Comments</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="vstack gap-2 col-md-3 mx-auto"style="padding-top: 20px;">
+    <button type="submit" class="btn btn-success">Submit</button>
+    </div>
 </form>
 {% else %}
 {% include 'guest.html' %}

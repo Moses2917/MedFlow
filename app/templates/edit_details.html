@@ -46,7 +46,7 @@
     <textarea class="form-control" aria-label="With textarea" name="comments">{{session['patient']['comments']}}</textarea>
   </div>
   <!-- <input type="hidden" name="patient" value={{session['patient']}}> -->
-  <div class="vstack gap-2 col-md-5 mx-auto"style="padding-top: 20px;">
+  <div class="vstack gap-2 col-md-3 mx-auto"style="padding-top: 20px;">
     <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
     <button type="submit" class="btn btn-success">Save Changes</button>
     <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-outline-secondary">Cancel</a>
@@ -56,3 +56,4 @@
 {% include 'guest.html' %}
 {% endif %}
 {% endblock %}
+
