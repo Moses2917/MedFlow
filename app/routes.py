@@ -275,11 +275,22 @@ def search():
     return render_template('search.html')
 
 #delete patient
-@app.route('/delete_patient/<patient_id>', methods=['POST'])
+@app.route('/delete_patient/<patient_id>', methods=['GET'])
 def delete_patient(patient_id):
-    
-    flash('Patient deleted successfully!', 'success')
-    return redirect(url_for('patients.html'))  # Redirect to the patients page after deletion
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            if patient_id:
+                
+                db.patients.delete_one({
+                    "doctor": email,
+                    "name": patient_id
+                    })
+            else:
+                flash('Patient NOT deleted successfully!', 'error')
+            
+            flash('Patient deleted successfully!', 'success')
+    return redirect(url_for('patients'))  # Redirect to the patients page after deletion
 
 #Delete Appointment
 @app.route('/delete_appointment/<appointment>', methods=['GET','POST'])
