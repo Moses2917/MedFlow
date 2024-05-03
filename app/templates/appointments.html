@@ -16,7 +16,6 @@
       <strong>  <label for="patient_id">Patient ID</label> </strong>
       <div class="form-floating">
           <input type="search" list="patientNames" class="form-control" id="patient_id" name="patient_id" required>
-          <label for="patient_id">First, Last</label>
           <!-- TODO: add a check to make sure the input is a valid patient -->
       </div>
         <datalist id="patientNames">
@@ -39,8 +38,9 @@
        <strong> <label for="reason">Reason</label> </strong>
         <textarea class="form-control" id="reason" name="reason" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Schedule Appointment</button>
-    
+    <div class="vstack gap-2 col-md-4 mx-auto"style="padding-top: 20px;">
+    <button type="submit" class="btn btn-success">Schedule Appointment</button>
+    </div>
 </form>
 
 <h2>Scheduled Appointments</h2>

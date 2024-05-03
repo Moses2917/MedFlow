@@ -3,14 +3,15 @@
 {% block content %}
 {% if session['user'] %}
 <h1>Patient Details: {{ patient }}<h1>
-<h2>Scheduled Appointments</h2>
+<h3>Scheduled Appointments</h3>
 <form method="post">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <a href="{{url_for('prescriptions')}}" class="btn btn-primary" role="button">View/Add New Perscription(s)</a>
         <a href="{{url_for('lab_tests')}}" class="btn btn-primary" role="button">View Lab Test(s)</a>
         <a href="{{url_for('edit_details')}}" class="btn btn-primary" role="button">Edit Patient's Info</a>
     </div>
-    
+    <div style="height: 10px;"></div>
+ 
 </form>
 <table class="table">
     <thead>

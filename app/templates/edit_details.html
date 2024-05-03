@@ -5,7 +5,7 @@
 <h1>Edit Patient Information</h1>
 <form method="post">
     <div class="input-group mb-3">        
-        <label for="name" class="form-label">Please update your patient's name</label>
+        <label for="name" class="form-label">Please update your patient's name‎ ‎ ‎ </label>
         <br>
         <div class="form-flaoting mb-3">
             <input type="text" name="name" placeholder="Name" class="form-control" id="name" value="{{session['patient']['name']}}">
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="input-group mb-3">
-        <label for="age" class="form-label">Please update their age:</label>
+        <label for="age" class="form-label">Please update their age‎ ‎ </label>
         <br>
         <div class="form-floating mb-3">
             <input type="number" name="age" id="age" class="form-control" min="0" max="100" value="{{session['patient']['age']}}">
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="input-group mb-3">
-        <label for="gender" class="form-label">Please update their gender</label>
+        <label for="gender" class="form-label">Please update their gender ‎ ‎ </label>
         <div class="form-floating mb-3">
             <select name="gender" id="gender" class="form-control">
                 <option value={{session['patient']['gender']}}>{{session['patient']['gender']}}</option>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="input-group mb-3">
-        <label for="contact" class="form-label">Please update their email</label>
+        <label for="contact" class="form-label">Please update their email‎ ‎ </label>
         <br>
         <div class="form-floating mb-3">
             <input type="email" name="contact" id="contact" class="form-control" placeholder="Email" value='{{session['patient']['contact']}}'> 
@@ -42,13 +42,13 @@
         </div>
     </div>
   <div class="input-group">
-    <span class="input-group-text">Notes</span>
+    <span class="input-group-text">Comments</span>
     <textarea class="form-control" aria-label="With textarea" name="comments">{{session['patient']['comments']}}</textarea>
   </div>
   <!-- <input type="hidden" name="patient" value={{session['patient']}}> -->
-  <div class="vstack gap-2 col-md-5 mx-auto"style="padding-top: 20px;">
+  <div class="vstack gap-2 col-md-4 mx-auto"style="padding-top: 20px;">
     <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-success">Save Changes</button>
     <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-outline-secondary">Cancel</a>
     </div> 
 </form>

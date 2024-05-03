@@ -2,8 +2,10 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>View or Edit patient prescriptions</h1>
+<h1>Access Patients Prescriptions</h1>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
+<div style="height: 1px;"></div>
+
 <br>
 <form method="post">
     <div class="form-floating mb-3">
@@ -22,7 +24,9 @@
         <textarea class="form-control" name="reason" placeholder="reason" id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Reason</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="vstack gap-2 col-md-4 mx-auto">
+    <button type="submit" class="btn btn-success">Submit</button>
+    </div>
 </form>
 
 {% if prescriptions %}

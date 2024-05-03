@@ -3,10 +3,13 @@
 {% block content %}
 {% if session['user'] %}
 <h1>Add a new patient</h1>
-<a href="{{url_for('patients')}}" class="btn btn-primary" role="button">Back</a>
+<a href="{{url_for('patients')}}" class="btn btn-primary" role="button">Back </a>
+<div style="height: 1px;"></div>
+
 <br>
 <form method="post">
     <div class="form-floating mb-3">
+        
         <input type="text" name="name" placeholder="Name" class="form-control" id="name">
         <label for="name" class="form-label">Please enter your patient's name</label>
     </div>
@@ -29,7 +32,10 @@
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="comments"></textarea>
         <label for="floatingTextarea">Comments</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="vstack gap-2 col-md-4 mx-auto"style="padding-top: 20px;">
+        <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
+        <button type="submit" class="btn btn-success">Submit</button>
+        </div> 
 </form>
 {% else %}
 {% include 'guest.html' %}

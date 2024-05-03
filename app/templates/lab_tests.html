@@ -5,6 +5,7 @@
 <h1>View patient lab results</h1>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
     role="button">Back</a>
+    <div style="height: 10px;"></div>
 <form method="post">
     <div class="form-floating mb-3">
         <input type="text" name="test_type" placeholder="Test Type" class="form-control" id="test_type">
@@ -19,7 +20,10 @@
             id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Instructions</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="vstack gap-2 col-md-4 mx-auto"style="padding-top: 20px;">
+    <button type="submit" class="btn btn-success">Submit</button>
+    <div style="height: 5px;"></div>
+    </div>
 </form>
 
 {% if tests %}
