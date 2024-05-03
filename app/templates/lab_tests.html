@@ -2,36 +2,50 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>View patient lab results</h1>
+<h1>Access Lab Results</h1>
+<div class="col-md-6">
+    <div class="text-left">
+        <img src="{{ url_for('static', filename='pictures/index5.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+    </div>
+    <p class="text-left">Record medical diagnoses and order laboratory tests, X-rays, and MRIs</p>
+    <p class="text-left">Track prescribed tests types and dosages</p>
+    <p class="text-left">Access and manage electronic medical records (EMR)</p>
+</div>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
     role="button">Back</a>
 <form method="post">
     <div class="form-floating mb-3">
+        <strong> <label for="time">Test</label> </strong>
         <input type="text" name="test_type" placeholder="Test Type" class="form-control" id="test_type">
-        <label for="test_type" class="form-label">Please enter your prescribed test type</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" name="dosage" id="dosage" class="form-control" placeholder="dosage">
-        <label for="dosage" class="form-label">Dosage (mg)</label>
+        <strong> <label for="time">Reason</label> </strong>
+        <input type="text" name="dosage" id="dosage" class="form-control" placeholder="dosage">
     </div>
     <div class="form-floating mb-3">
-        <textarea class="form-control" name="instructions" placeholder="Leave instructions here"
-            id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Instructions</label>
+        <strong> <label for="date">Date</label> </strong>
+        <input type="date" class="form-control" id="date" name="date" required>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+        <strong> <label for="time">Time</label> </strong>
+         <input type="time" class="form-control" id="time" name="time" required>
+    </div>
+    <div class="vstack gap-2 col-md-5 mx-auto"style="padding: 20px;">
+        <!-- <a href="{{url_for( 'patient_details', patient_id=session['patient_id'])}}" class="btn btn-primary" role="button">Save Changes</a> -->
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        </div> 
 </form>
 
 {% if tests %}
-<div class="table-responsive fs-3">
+<div class="table-responsive fs-2">
     <table class="table table-striped">
         <tbody>
             <tr>
-                <td>Medication</td>
-                <td>Dosage (mg)</td>
-                <td>Instructions</td>
-                <td>Prescribed by</td>
-                <td>Date prescribed</td>
+                <td>Test</td>
+                <td>Reason</td>
+                <td>Time/Date</td>
+                <td>Requested by</td>
+                <td>Date requested</td>
             </tr>
 
             {% for prescription in prescriptions %}
