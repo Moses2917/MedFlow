@@ -9,22 +9,26 @@
         </div>
         <p class="text-left">Personalized portal for scheduling appointments</p>
         <p class="text-left">Check scheduled appointments to determine availability</p>
-     
+        <p class="text-left">Patient summary regarding upcoming appointments</p>
     </div>
 <form method="post">
     <div class="form-group">
-        <strong><label for="patient_id">Patient ID</label> </strong>
-        <input type="search" list="patientNames" class="form-control" id="patient_id" name="patient_id" required>
+      <strong>  <label for="patient_id">Patient ID</label> </strong>
+      <div class="form-floating">
+          <input type="search" list="patientNames" class="form-control" id="patient_id" name="patient_id" required>
+          <label for="patient_id">First, Last</label>
+          <!-- TODO: add a check to make sure the input is a valid patient -->
+      </div>
         <datalist id="patientNames">
             {% if patients %}
                 {% for patient in patients %}
-                    <option value = {{patient["name"]|safe}}></option>
+                    <option value = '{{patient["name"]|safe}}'></option>
                 {% endfor %}
             {% endif %}
         </datalist>
     </div>
     <div class="form-group">
-       <strong> <label for="date">Date</label> </strong>
+      <strong>  <label for="date">Date</label> </strong>
         <input type="date" class="form-control" id="date" name="date" required>
     </div>
     <div class="form-group">
@@ -32,18 +36,15 @@
         <input type="time" class="form-control" id="time" name="time" required>
     </div>
     <div class="form-group">
-       <strong> <label for="reason">Reason</label> </strong> 
+       <strong> <label for="reason">Reason</label> </strong>
         <textarea class="form-control" id="reason" name="reason" required></textarea>
     </div>
-    <div class="vstack gap-2 col-md-5 mx-auto"style="padding-top: 20px;">
-
     <button type="submit" class="btn btn-primary">Schedule Appointment</button>
-        </div>
+    
 </form>
 
 <h2>Scheduled Appointments</h2>
-<div class="table-container">
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Patient ID</th>
@@ -51,6 +52,8 @@
             <th>Date</th>
             <th>Time</th>
             <th>Reason</th>
+           
+        
         </tr>
     </thead>
     <tbody>
@@ -62,13 +65,15 @@
             <td>{{ appointment.time }}</td>
             <td>{{ appointment.reason }}</td>
             <td>
+                <form method="post">
+                    <input type="hidden" name="appointment" value="{{appointment._id}}">
+                </form>
                 <a href="{{url_for('delete_appointment', appointment=appointment._id)}}" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-</div>
 {% else %}
 {% include 'guest.html' %}
 {% endif %}

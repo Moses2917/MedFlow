@@ -4,6 +4,13 @@
 {% if session['user'] %}
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flatpickr Calendar with Appointments</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
 <div class="row">
     <div class="col-md-12 text-center">
         <h1 class="mt-5">Welcome Medical Professional!</h1>
@@ -26,9 +33,33 @@
   <div class="alert alert-primary d-flex align-items-center" role="alert">
     <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
     <div>
-     Check your upcoming appointments!
+     You have no new notifications!
     </div>
   </div>
+
+<body>
+  <!-- Calendar container -->
+  <div class="calendar-container">
+    <div id="calendar"></div>
+  </div>
+
+  <!-- JavaScript dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+ 
+  <style>
+    .calendar-container {
+        text-align:center;
+    }
+    #calendar {
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    
+  </style>
+</body>
+</html>
 
   
 
@@ -118,7 +149,16 @@
                 <p class="text-center">Follows industry-standard usability guidelines for healthcare applications</p>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='pictures/index10.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
+                </div>
+                <h2 class="text-center mt-5">Security and Compliance</h2>
+                <p class="text-center">Robust security measures to protect sensitive patient data</p>
+                <p class="text-center">Compliant with healthcare regulations, including HIPAA</p>
+            </div>
+        </div>
     </div>
 {%endif%}
 {% endblock %}

@@ -1,3 +1,18 @@
+/* Add your custom styles here */
+.has-appointment {
+  background-color: #f0ad4e; /* Yellow background color for dates with appointments */
+  color: #fff; /* White text color for dates with appointments */
+}
+
+.calendar-container {
+  width: 100%; /* Ensure the container fills the width of the viewport */
+}
+
+#calendar {
+  width: 100%; /* Ensure the calendar fills the width of its container */
+  height: 100%; /* Ensure the calendar fills the height of its container */
+}
+
 .table-container {
   width: 100%; /* Make the container fill the width of the screen */
 }

@@ -2,14 +2,7 @@
 
 {% block content %}
 {% if session['user'] %}
-<h1>Access Patients Prescriptions</h1>
-<div class="col-md-6">
-    <div class="text-left">
-        <img src="{{ url_for('static', filename='pictures/index9.jpg') }}" alt="Intermediate Image" class="img-fluid mt-4" style="max-width: 300px;">
-    </div>
-    <p class="text-left">User-friendly interface with clean and modern design</p>
-    <p class="text-left">Follows industry-standard usability guidelines for healthcare applications</p>
-</div>
+<h1>View or Edit patient prescriptions</h1>
 <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
 <br>
 <form method="post">
@@ -29,8 +22,7 @@
         <textarea class="form-control" name="reason" placeholder="reason" id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Reason</label>
     </div>
-    <div class="vstack gap-2 col-md-5 mx-auto"style="padding: 20px;">
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 {% if prescriptions %}
@@ -38,12 +30,12 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <th>Medication</th>
-                <th>Dosage (mg)</th>
-                <th>Instructions</th>
-                <th>Reason</th>
-                <th>Prescribed by</th>
-                <th>Date prescribed</th>
+                <td>Medication</td>
+                <td>Dosage (mg)</td>
+                <td>Instructions</td>
+                <td>Reason</td>
+                <td>Prescribed by</td>
+                <td>Date prescribed</td>
             </tr>
         
             {% for prescription in prescriptions %}
