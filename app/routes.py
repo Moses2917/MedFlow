@@ -194,6 +194,7 @@ def edit_details():
 @app.route('/lab_tests', methods=['GET', 'POST'])
 # @login_required
 def lab_tests():
+    tests = ""
     if request.method == 'POST':
         test_data = {
             'patient_id': session['patient']['name'],
@@ -204,7 +205,15 @@ def lab_tests():
         }
         db.lab_tests.insert_one(test_data)
         flash('Laboratory test ordered successfully!', 'success')
-    tests = db.lab_tests.find()
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            cursor = db.tests.find({
+                "ordered_by": email,
+                "patient_id": session['patient']['name']
+                })
+            tests = [doc for doc in cursor]
+    # tests = db.lab_tests.find()
     return render_template('lab_tests.html', tests=tests)
 
 @app.route('/lab_test/<test_id>', methods=['GET', 'POST'])
