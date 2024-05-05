@@ -3,10 +3,9 @@
 {% block content %}
 {% if session['user'] %}
 <h1>Access Patients Prescriptions</h1>
-<a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
 <div style="height: 1px;"></div>
-
-<br>
+<a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary" role="button">Back</a>
+<br> <br>
 <form method="post">
     <div class="form-floating mb-3">
         <input type="text" name="medication" placeholder="Medication" class="form-control" id="medication">
