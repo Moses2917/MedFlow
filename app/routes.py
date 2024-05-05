@@ -12,7 +12,13 @@ from datetime import datetime
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    appointments = ''
+    if session.get('user', None):
+        email = session['user'].get('email')
+        if email:
+            cursor = db.appointments.find({'doctor': email})
+            appointments = [doc for doc in cursor]
+    return render_template('index.html',appointments=appointments)
 
 # User authentication routes
 @app.route('/register', methods=['GET', 'POST'])
@@ -190,10 +196,10 @@ def edit_details():
 def lab_tests():
     if request.method == 'POST':
         test_data = {
-            'patient_id': request.form['patient_id'],
+            'patient_id': session['patient']['name'],
             'test_type': request.form['test_type'],
-            'ordered_by': current_user.id,
-            'order_date': datetime.now(),#datetime.strptime(datetime.now(), '%Y-%m-%d'),
+            'ordered_by': session["user"]["email"],
+            'order_date': datetime.strftime(datetime.now(), '%m-%d-%Y'),
             'results': None
         }
         db.lab_tests.insert_one(test_data)
