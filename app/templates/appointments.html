@@ -67,9 +67,6 @@
             <td>{{ appointment.time }}</td>
             <td>{{ appointment.reason }}</td>
             <td>
-                <form method="post">
-                    <input type="hidden" name="appointment" value="{{appointment._id}}">
-                </form>
                 <a href="{{url_for('delete_appointment', appointment=appointment._id)}}" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>

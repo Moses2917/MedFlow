@@ -4,7 +4,7 @@ from app import app, db
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from datetime import datetime
-
+from bson.objectid import ObjectId
 
 # User authentication routes
 
@@ -120,6 +120,7 @@ def add_patient():
 @app.route('/patient_details/<patient_id>', methods=['GET'])
 # @login_required
 def patient_details(patient_id):
+    
     patient = patient_id
     history = db.patient_history.find({'patient_id': patient_id})
     family = db.patient_family.find({'patient_id': patient_id})
@@ -132,7 +133,9 @@ def patient_details(patient_id):
                 "doctor": email,
                 "name": patient_id
                 })
-            session['patient']['_id'] = 0
+            
+            #Converting the objectid object to a str
+            session['patient']['_id'] = str(session['patient']['_id'])
             
             cursor = db.appointments.find({
                 "doctor": email,
@@ -186,7 +189,11 @@ def edit_details():
             'comments': request.form.get('comments', session['patient']['contact']),
             'doctor': session['user']['email']
         }
-        db.patients.insert_one(patient)
+        db.patients.find_one_and_replace({
+            '_id': ObjectId(session['patient']['_id'])
+                },
+            patient
+            )
         return redirect(url_for('patients'))
     return render_template('edit_details.html')
 
@@ -310,9 +317,13 @@ def delete_patient(patient_id):
 #Delete Appointment
 @app.route('/delete_appointment/<appointment>', methods=['GET','POST'])
 def delete_appointment(appointment):
-    item_to_delete = appointment
+    
+    item_to_delete = ObjectId(appointment)
+    # item_to_delete = appointment
     if item_to_delete:
-        db.appoitments.delete_one({'_id':item_to_delete})
+        deleted_appoitment = db.appointments.find_one_and_delete({
+            '_id':item_to_delete
+            })
         return redirect(url_for('appointments'))
     else:
         return "Not Found", 404
