@@ -7,8 +7,8 @@
     <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
         role="button">Back</a>
     <div class="d-flex justify-content-end">
-        <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary align-items-end"
-            role="button">Results</a>
+        <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}"
+            class="btn btn-primary align-items-end" role="button">Results</a>
     </div>
 </div>
 
@@ -28,9 +28,9 @@
             id="floatingTextarea"></textarea>
         <label for="floatingTextarea">Instructions</label>
     </div>
-    <div class="vstack gap-2 col-md-4 mx-auto"style="padding-top: 20px;">
-    <button type="submit" class="btn btn-success">Submit</button>
-    <div style="height: 5px;"></div>
+    <div class="vstack gap-2 col-md-4 mx-auto" style="padding-top: 20px;">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <div style="height: 5px;"></div>
     </div>
 </form>
 
@@ -53,13 +53,13 @@
                 <td>{{test.ordered_by}}</td>
                 <td>{{test.order_date}}</td>
                 <td><a href="{{ url_for( 'lab_test_details', test_id=test._id)}}"
-                    class="btn btn-primary align-items-end" role="button">Results</a></td>
+                        class="btn btn-primary align-items-end" role="button">Results</a></td>
             </tr>
             {%endfor%}
         </tbody>
     </table>
-{%endif%}
-{% else %}
-{% include 'guest.html' %}
-{% endif %}
-{% endblock %}
+    {%endif%}
+    {% else %}
+    {% include 'guest.html' %}
+    {% endif %}
+    {% endblock %}

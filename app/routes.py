@@ -215,7 +215,7 @@ def lab_tests():
     if session.get('user', None):
         email = session['user'].get('email')
         if email:
-            cursor = db.tests.find({
+            cursor = db.lab_tests.find({
                 "ordered_by": email,
                 "patient_id": session['patient']['name']
                 })
