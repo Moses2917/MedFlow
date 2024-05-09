@@ -4,7 +4,7 @@
 {% if session['user'] %}
 <h1>View patient lab results</h1>
 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-    <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
+    <a href="{{url_for('lab_tests')}}" class="btn btn-primary"
         role="button">Back</a>
 </div>
 
