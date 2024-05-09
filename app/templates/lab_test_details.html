@@ -11,64 +11,28 @@
 <div style="height: 10px;"></div>
 
 <form method="post">
-    <div class="vstack gap-2 col-md-4 mx-auto" style="padding-top: 20px;">
-        <button type="submit" class="btn btn-success">Submit</button>
+    <div class="vstack gap-2 col-md-3 mx-auto" style="padding-top: 20px;">
+        <button type="submit" class="btn btn-secondary">Upload PDF</button>
         <div style="height: 5px;"></div>
     </div>
 </form>
 
 
 
-<div class="table-responsive fs-3">
+<div class="table fs-2">
     <table class="table table-striped table-hover" style="margin-left: 75px;">
         <tbody>
             <tr>
-                <td>Test Name</td>
-                <td>Ordered By</td>
-                <td>Order Date</td>
-
-                <td>View Results</td>
+                <td>View PDF</td>
             </tr>
-
-            {% for test in tests %}
             <tr>
-                <td>{{test.test_type}}</td>
-                <td>{{test.ordered_by}}</td>
-                <td>{{test.order_date}}</td>
-                <td><a href="{{ url_for( 'lab_test_details', test_id=test._id)}}"
-                    class="btn btn-primary align-items-end" role="button">Results</a></td>
+                <td><embed src="{{ url_for('static', filename='pdf/results.pdf') }}" width="1000" height="1000" 
+                    type="application/pdf" style="margin-left: 75px;"></td>
             </tr>
-            {%endfor%}
+
         </tbody>
     </table>
 
-
-
-{% if tests %}
-
-<div class="table-responsive fs-3">
-    <table class="table table-striped table-hover" style="margin-left: 75px;">
-        <tbody>
-            <tr>
-                <td>Test Name</td>
-                <td>Ordered By</td>
-                <td>Order Date</td>
-
-                <td>View Results</td>
-            </tr>
-
-            {% for test in tests %}
-            <tr>
-                <td>{{test.test_type}}</td>
-                <td>{{test.ordered_by}}</td>
-                <td>{{test.order_date}}</td>
-                <td><a href="{{ url_for( 'lab_test_details', test_id=test._id)}}"
-                        class="btn btn-primary align-items-end" role="button">Results</a></td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-    {%endif%}
     {% else %}
     {% include 'guest.html' %}
     {% endif %}
