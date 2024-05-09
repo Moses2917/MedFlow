@@ -6,33 +6,43 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
     <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
         role="button">Back</a>
-    <div class="d-flex justify-content-end">
-        <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}"
-            class="btn btn-primary align-items-end" role="button">Results</a>
-    </div>
 </div>
 
 <div style="height: 10px;"></div>
 
 <form method="post">
-    <div class="form-floating mb-3">
-        <input type="text" name="test_type" placeholder="Test Type" class="form-control" id="test_type">
-        <label for="test_type" class="form-label">Please enter your prescribed test</label>
-    </div>
-    <!-- <div class="form-floating mb-3">
-        <input type="text" name="test_type" id="test_type" class="form-control" placeholder="test_type">
-        <label for="test_type" class="form-label">Test Type</label>
-    </div> -->
-    <div class="form-floating mb-3">
-        <textarea class="form-control" name="instructions" placeholder="Leave instructions here"
-            id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Instructions</label>
-    </div>
     <div class="vstack gap-2 col-md-4 mx-auto" style="padding-top: 20px;">
         <button type="submit" class="btn btn-success">Submit</button>
         <div style="height: 5px;"></div>
     </div>
 </form>
+
+
+
+<div class="table-responsive fs-3">
+    <table class="table table-striped table-hover" style="margin-left: 75px;">
+        <tbody>
+            <tr>
+                <td>Test Name</td>
+                <td>Ordered By</td>
+                <td>Order Date</td>
+
+                <td>View Results</td>
+            </tr>
+
+            {% for test in tests %}
+            <tr>
+                <td>{{test.test_type}}</td>
+                <td>{{test.ordered_by}}</td>
+                <td>{{test.order_date}}</td>
+                <td><a href="{{ url_for( 'lab_test_details', test_id=test._id)}}"
+                    class="btn btn-primary align-items-end" role="button">Results</a></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+
+
 
 {% if tests %}
 

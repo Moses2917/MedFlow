@@ -6,10 +6,6 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
     <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary"
         role="button">Back</a>
-    <div class="d-flex justify-content-end">
-        <a href="{{ url_for( 'patient_details', patient_id=session['patient']['name']) }}" class="btn btn-primary align-items-end"
-            role="button">Results</a>
-    </div>
 </div>
 
 <div style="height: 10px;"></div>
@@ -33,6 +29,7 @@
     <div style="height: 5px;"></div>
     </div>
 </form>
+<br>
 
 {% if tests %}
 
@@ -44,7 +41,7 @@
                 <td>Ordered By</td>
                 <td>Order Date</td>
 
-                <td>View Results</td>
+                <td><a style="margin-left:40px;">View Results</a></td>
             </tr>
 
             {% for test in tests %}
@@ -53,7 +50,8 @@
                 <td>{{test.ordered_by}}</td>
                 <td>{{test.order_date}}</td>
                 <td><a href="{{ url_for( 'lab_test_details', test_id=test._id)}}"
-                    class="btn btn-primary align-items-end" role="button">Results</a></td>
+                    class="btn btn-primary align-items-end col-md-5" role="button" style="margin-right: 10px;">Results</a><a href="{}" class="btn btn-danger align-items-end col-md-5">Delete</a></td>
+                    
             </tr>
             {%endfor%}
         </tbody>
