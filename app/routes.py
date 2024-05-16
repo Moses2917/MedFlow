@@ -1,10 +1,12 @@
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, send_from_directory
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from datetime import datetime
 from bson.objectid import ObjectId
+import os
+from werkzeug.utils import secure_filename
 
 # User authentication routes
 
@@ -223,15 +225,58 @@ def lab_tests():
     # tests = db.lab_tests.find()
     return render_template('lab_tests.html', tests=tests)
 
+
+def allowed_file(filename):
+    # ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
+    
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() == 'pdf'
+
+@app.route('/lab_test/<test_id>/uploadedFile')
+def uploaded_file(test_id):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], path=test_id+".pdf")
+
+# @app.route('/lab_test/<test_id>/upload', methods=['GET', 'POST'])
+# def upload_file():
+#     if request.method == 'POST':
+#         # check if the post request has the file part
+#         if 'file' not in request.files:
+#             flash('No file part')
+#             return redirect(request.url)
+#         file = request.files['file']
+#         # if user does not select file, browser also
+#         # submit an empty part without filename
+#         if file.filename == '':
+#             flash('No selected file')
+#             return redirect(request.url)
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#             return redirect(url_for('uploaded_file',
+#                                     filename=filename))
+
 @app.route('/lab_test/<test_id>', methods=['GET', 'POST'])
 # @login_required
 def lab_test_details(test_id):
+    
     if request.method == 'POST':
-        test_results = request.form['results']
-        db.lab_tests.update_one({'_id': test_id}, {'$set': {'results': test_results}})
-        flash('Test results updated successfully!', 'success')
-    test = db.lab_tests.find_one({'_id': test_id})
-    return render_template('lab_test_details.html', test=test)
+        fileuploadBool = request.form.get("fileUpload", None)
+        if fileuploadBool: #ie: check if it exists, so its not none
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], test_id+".pdf"))
+                # with open(app.config['UPLOAD_FOLDER'] + test_id+".pdf",'w', encoding='utf-8') as f:
+                #     pass #make the file
+                file.save(app.config['UPLOAD_FOLDER'] + test_id+".pdf")
+                # return redirect(url_for('uploaded_file',
+                #                         test_id=test_id+".pdf"))    
+
+    return render_template('lab_test_details.html', test_id=test_id)
+
 
 # Prescription routes
 @app.route('/prescriptions', methods=['GET', 'POST'])

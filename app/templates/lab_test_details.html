@@ -9,31 +9,105 @@
 </div>
 
 <div style="height: 10px;"></div>
-
-<form method="post">
-    <div class="vstack gap-2 col-md-3 mx-auto" style="padding-top: 20px;">
-        <button type="submit" class="btn btn-secondary">Upload PDF</button>
-        <div style="height: 5px;"></div>
+<br>
+<form method="post" enctype="multipart/form-data" id="fileForm" name="fileForm">
+    <div class="mb-3">
+        <label for="formFile" class="h3 form-label">Please Upload Lab Test Results: </label>
+        
+        <input class="form-control btn btn-secondary" type="file" id="file" name="file" accept=".pdf" onchange="upload_files()">
+        
+        <input type="submit" class="btn btn-success" value="Upload">
+        <input name="fileUpload" value="True" hidden>
     </div>
 </form>
 
+<!-- <script>
 
+    async function upload_files(){
+        file = document.getElementById('fileForm');
+        let upload_url =  url_for('lab_test_details',test_id=test_id)| tojson ;
+        const formdata = FormData(file).get('file')
+        const request = new Request(upload_url, {
+            method: "POST",
+            body: { 'file' : file}
+        });
+        fetch(request);
+    }
 
-<div class="table fs-2">
-    <table class="table table-striped table-hover" style="margin-left: 75px;">
-        <tbody>
-            <tr>
-                <td>View PDF</td>
-            </tr>
-            <tr>
-                <td><embed src="{{ url_for('static', filename='pdf/results.pdf') }}" width="1000" height="1000" 
-                    type="application/pdf" style="margin-left: 75px;"></td>
-            </tr>
+</script> -->
 
-        </tbody>
-    </table>
+<!-- <script>
+    async function upload_files() {
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
 
-    {% else %}
-    {% include 'guest.html' %}
-    {% endif %}
-    {% endblock %}
+            if (!file) {
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const upload_url = "{{ url_for('lab_test_details', test_id=test_id) }}";
+
+            try {
+                const response = await fetch(upload_url, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    console.log('File uploaded successfully');
+                } else {
+                    console.error('Error uploading file');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+</script> -->
+
+<embed id="pdfEmbed" src="{{ url_for('uploaded_file', test_id=test_id) }}" width="1000" height="1000" type="application/pdf" style="margin-left: 75px;" />
+
+<!-- <script>
+    async function upload_files() {
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const upload_url = "{{ url_for('lab_test_details', test_id=test_id) }}";
+
+            try {
+                const response = await fetch(upload_url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                });
+
+                if (response.ok) {
+                    console.log('File uploaded successfully');
+                    // Update the <embed> element with the new file URL
+                    const pdfEmbed = document.getElementById('pdfEmbed');
+                    const newFileUrl = "{{ url_for('uploaded_file', test_id=test_id) }}";
+                    pdfEmbed.src = newFileUrl;
+                } else {
+                    console.error('Error uploading file');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+</script> -->
+
+{% else %}
+{% include 'guest.html' %}
+{% endif %}
+{% endblock %}
