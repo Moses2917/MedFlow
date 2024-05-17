@@ -55,7 +55,7 @@ MedFlow is a cloud-hosted application, but you can also run it locally if desire
 
 ### Cloud-Hosted Version (Recommended)
 
-MedFlow is hosted and maintained by our team. You can access the live application by visiting a website which will soon be up and creating an account.
+MedFlow is hosted and maintained by our team. You can access the live application by visiting http://medflow.us.to
 
 ### Local Installation (Optional)
 
